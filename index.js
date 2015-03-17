@@ -5,7 +5,8 @@ var ejs = require('ejs'),
 module.exports = function (source) {
   this.cacheable && this.cacheable();
   var template = ejs.compile(source, {
-    client: true
+    client: true,
+    filename: '.'
   });
 
   var ast = uglify.parser.parse(template.toString());
