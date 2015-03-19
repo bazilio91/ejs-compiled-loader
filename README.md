@@ -16,6 +16,10 @@ var template = require("ejs-compiled!./file.ejs");
 
 // And then use it somewhere in your code
 template(data) // Pass object with data
+
+// Child Templates
+// path is relative to where webpack is being run
+<%- include templates/child -%>
 ```
 
 ## License
