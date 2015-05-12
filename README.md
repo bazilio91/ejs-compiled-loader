@@ -2,6 +2,8 @@
 
 EJS loader for [webpack](http://webpack.github.io/). Uses [ejs](https://github.com/tj/ejs) function to compile templates.
 
+To use EJS by tj use 1.x branch and 1.x.x versions.
+
 ## Installation
 
 `npm install ejs-compiled-loader`
