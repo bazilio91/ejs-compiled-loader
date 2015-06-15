@@ -1,16 +1,30 @@
 var ejs = require('ejs'),
   uglify = require('uglify-js'),
-  utils = require("loader-utils");
+  utils = require('loader-utils'),
+  path = require('path');
 
 
 module.exports = function (source) {
   this.cacheable && this.cacheable();
   var opts = utils.parseQuery(this.query);
   opts.client = true;
-  opts.filename = this.resourcePath;
+
+  // Skip compile debug for production when running with
+  // webpack --optimize-minimize
+  if (this.minimize && opts.compileDebug === undefined) {
+    opts.compileDebug = false;
+  }
+
+  // Use filenames relative to the context (in most cases the project root)
+  opts.filename = path.relative(this.context, this.resourcePath);
+
   var template = ejs.compile(source, opts);
 
-  var ast = uglify.parser.parse(template.toString());
+  // Beautify javascript code
+  if (!this.minimize && opts.beautify !== false) {
+    var ast = uglify.parser.parse(template.toString());
+    template = uglify.uglify.gen_code(ast, {beautify: true});
+  }
 
-  return 'module.exports = ' + uglify.uglify.gen_code(ast, {beautify: true});
+  return 'module.exports = ' + template;
 };
