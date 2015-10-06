@@ -1,7 +1,8 @@
 var ejs = require('ejs'),
   uglify = require('uglify-js'),
   utils = require('loader-utils'),
-  path = require('path');
+  path = require('path'),
+  process = require('process');
 
 
 module.exports = function (source) {
@@ -15,8 +16,8 @@ module.exports = function (source) {
     opts.compileDebug = false;
   }
 
-  // Use filenames relative to the context (in most cases the project root)
-  opts.filename = path.relative(this.context, this.resourcePath);
+  // Use filenames relative to working dir, which should be project root
+  opts.filename = path.relative(process.cwd(), this.resourcePath);
 
   var template = ejs.compile(source, opts);
 
