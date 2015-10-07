@@ -1,8 +1,7 @@
 var ejs = require('ejs'),
   uglify = require('uglify-js'),
   utils = require('loader-utils'),
-  path = require('path'),
-  process = require('process');
+  path = require('path');
 
 
 module.exports = function (source) {
