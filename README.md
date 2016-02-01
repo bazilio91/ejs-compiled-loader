@@ -24,6 +24,34 @@ template(data) // Pass object with data
 <%- include templates/child -%>
 ```
 
+## Options
+
+Following options can be specified in query:
+
+`beatify` — enable or disable uglify-js beautify of teamplate ast
+
+`compileDebug` — see ejs compileDebug option
+
+`htmlmin` — see [#htmlminify](htmlminify section)
+
+## htmlminify
+
+```javascript
+module: {
+  loaders: [
+    {test: /\.ejs$/, loader: 'ejs-compiled?htmlmin'} // enable here
+  ]
+},
+'ejs-compiled-loader': {
+  'hmlmin': true, // or enable here  
+  'htmlminOptions': {
+    removeComments: true
+  }
+}
+```
+
+See [all options reference](https://github.com/kangax/html-minifier#options-quick-reference)
+
 ## License
 
 MIT (http://www.opensource.org/licenses/mit-license.php)
