@@ -32,7 +32,7 @@ Following options can be specified in query:
 
 `compileDebug` — see ejs compileDebug option
 
-`htmlmin` — see [#htmlminify](htmlminify section)
+`htmlmin` — see [htmlminify section](#htmlminify)
 
 ## htmlminify
 
@@ -43,7 +43,7 @@ module: {
   ]
 },
 'ejs-compiled-loader': {
-  'hmlmin': true, // or enable here  
+  'htmlmin': true, // or enable here  
   'htmlminOptions': {
     removeComments: true
   }
