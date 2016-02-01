@@ -1,12 +1,14 @@
 var ejs = require('ejs'),
   UglifyJS = require('uglify-js'),
   utils = require('loader-utils'),
-  path = require('path');
+  path = require('path'),
+  htmlmin = require('html-minifier'),
+  merge = require('merge');
 
 
 module.exports = function (source) {
   this.cacheable && this.cacheable();
-  var opts = utils.parseQuery(this.query);
+  var opts = merge(this.options['ejs-compiled-loader'] || {}, utils.parseQuery(this.query));
   opts.client = true;
 
   // Skip compile debug for production when running with
@@ -17,6 +19,10 @@ module.exports = function (source) {
 
   // Use filenames relative to working dir, which should be project root
   opts.filename = path.relative(process.cwd(), this.resourcePath);
+
+  if (opts.htmlmin) {
+    source = htmlmin.minify(source, opts['htmlminOptions'] || {});
+  }
 
   var template = ejs.compile(source, opts);
 
