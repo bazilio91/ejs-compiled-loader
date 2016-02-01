@@ -1,5 +1,5 @@
 var ejs = require('ejs'),
-  uglify = require('uglify-js'),
+  UglifyJS = require('uglify-js'),
   utils = require('loader-utils'),
   path = require('path');
 
@@ -22,8 +22,9 @@ module.exports = function (source) {
 
   // Beautify javascript code
   if (!this.minimize && opts.beautify !== false) {
-    var ast = uglify.parser.parse(template.toString());
-    template = uglify.uglify.gen_code(ast, {beautify: true});
+    var ast = UglifyJS.parse(template.toString());
+    ast.figure_out_scope();
+    template = ast.print_to_string({beautify: true});
   }
 
   return 'module.exports = ' + template;
