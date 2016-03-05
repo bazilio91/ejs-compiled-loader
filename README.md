@@ -28,7 +28,7 @@ template(data) // Pass object with data
 
 Following options can be specified in query:
 
-`beatify` — enable or disable uglify-js beautify of teamplate ast
+`beautify` — enable or disable uglify-js beautify of template ast
 
 `compileDebug` — see ejs compileDebug option
 
