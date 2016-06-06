@@ -23,6 +23,8 @@ module.exports = function (source) {
   if (opts.htmlmin) {
     source = htmlmin.minify(source, opts['htmlminOptions'] || {});
   }
+  
+  opts.webpack = this;
 
   var template = ejs.compile(source, opts);
 
