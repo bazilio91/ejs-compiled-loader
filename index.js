@@ -6,7 +6,8 @@ module.exports = function (source) {
   this.cacheable && this.cacheable();
   var template = ejs.compile(source, {
     client: true,
-    filename: '.'
+    filename: '.',
+    webpack: this
   });
 
   var ast = uglify.parser.parse(template.toString());
