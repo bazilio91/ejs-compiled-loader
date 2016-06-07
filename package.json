@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bazilio91/ejs-compiled-loader.git"
+    "url": "https://github.com/bazilio91/ejs-compiled-loader.git#ba8ef7f"
   },
   "keywords": [
     "ejs",
