@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bazilio91/ejs-compiled-loader.git"
+    "url": "https://github.com/bazilio91/ejs-compiled-loader.git#ba8ef7f"
   },
   "keywords": [
     "ejs",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/bazilio91/ejs-compiled-loader",
   "dependencies": {
-    "ejs": "^1.0.0",
+    "ejs": "git+https://github.com/nemanjan00/ejs.git",
     "uglify-js": "~1.3.4"
   }
 }
