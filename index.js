@@ -1,12 +1,14 @@
 var ejs = require('ejs'),
-  uglify = require('uglify-js');
+    uglify = require('uglify-js'),
+    path = require('path'),
+    process = require('process');
 
 
 module.exports = function (source) {
   this.cacheable && this.cacheable();
   var template = ejs.compile(source, {
     client: true,
-    filename: '.'
+    filename: path.relative(process.cwd(), this.resourcePath)
   });
 
   var ast = uglify.parser.parse(template.toString());
