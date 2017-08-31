@@ -8,7 +8,9 @@ var ejs = require('ejs'),
 
 module.exports = function (source) {
   this.cacheable && this.cacheable();
-  var opts = merge(this.options['ejs-compiled-loader'] || {}, utils.parseQuery(this.query));
+
+  var query = typeof this.query === 'object' ? this.query : utils.parseQuery(this.query);
+  var opts = merge(this.options['ejs-compiled-loader'] || {}, query);
   opts.client = true;
 
   // Skip compile debug for production when running with
