@@ -4,7 +4,9 @@
   "description": "EJS webpack loader (without frontend dependencies)",
   "main": "index.js",
   "scripts": {
-    "test": "cd test && ../node_modules/.bin/webpack && node bundle.js"
+    "test": "npm run test:webpack1 && npm run test:webpack2",
+    "test:webpack1": "npm install -q webpack@1.x && webpack --config test/webpack1.config.js && node test/bundle.js",
+    "test:webpack2": "npm install -q webpack@2.x && webpack --config test/webpack2.config.js && node test/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -30,7 +32,6 @@
     "uglify-js": "~2.6.1"
   },
   "devDependencies": {
-    "node-libs-browser": "^0.5.0",
-    "webpack": "^1.9.4"
+    "node-libs-browser": "^0.5.0"
   }
 }
