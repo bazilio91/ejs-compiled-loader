@@ -28,6 +28,10 @@ module.exports = function (source) {
 
   var template = ejs.compile(source, opts);
 
+  if (template.dependencies.length > 0) {
+    template.dependencies.map(dep => this.addDependency(dep));
+  }
+
   // Beautify javascript code
   if (!this.minimize && opts.beautify !== false) {
     var ast = UglifyJS.parse(template.toString());
