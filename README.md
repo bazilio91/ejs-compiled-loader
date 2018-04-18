@@ -6,7 +6,122 @@ EJS loader for [webpack](http://webpack.github.io/). Uses [ejs](https://github.c
 
 `npm install ejs-webpack-loader`
 
-## Usage
+## Config Setup examples as module loader
+
+ejs example
+```ejs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+</head>
+<body>
+    <p><%= someVar %></p>
+</body>
+</html>
+```
+
+webpack.config.js
+
+``` javascript
+
+const path = require('path');
+
+const config = {
+  output: {
+    filename: 'my-first-webpack.bundle.js'
+  },
+  module: {
+    rules: [
+      {
+          test: /\.ejs$/,
+          use: [
+              {
+                loader: "ejs-webpack-loader",
+                options: {
+                  data: {title: "New Title", someVar:"hello world"},
+                  htmlmin: true
+                }
+              }
+          ]
+      }
+    ]
+  }
+};
+
+```
+
+## Config Setup examples with separate extractor
+
+``` javascript
+
+const path = require('path');
+
+const config = {
+  entry: [
+    './src/index.ejs',
+    './src/main.ejs',
+  ]
+  output: {
+    filename: 'my-first-webpack.bundle.js'
+  },
+  module: {
+      rules: [
+          {
+              test: /\.ejs$/,
+              use: [
+                  {
+                      loader: 'file-loader',
+                      options: {
+                          name: '[name].html',
+                          context: './src/',
+                          outputPath: '/'
+                      }
+                  },
+                  {
+                      loader: 'extract-loader'
+                  },
+                  {
+                      loader: "ejs-webpack-loader",
+                      {
+                        data: {title: "New Title", someVar:"hello world"},
+                        htmlmin: true
+                      }
+                  }
+              ]
+          }
+      ]
+  }
+};
+
+```
+
+## Config Setup examples (via HtmlWebpackPlugin)
+
+``` javascript
+
+const path = require('path');
+
+const config = {
+  output: {
+    filename: 'my-first-webpack.bundle.js'
+  },
+  module: {
+    ...
+  },
+  plugin: {
+    new HtmlWebpackPlugin({
+        template: '!!ejs-webpack-loader!src/index.ejs'
+    })
+  }
+};
+
+module.exports = config;
+
+```
+
+## EJS Example
 
 [Documentation: Using loaders](http://webpack.github.io/docs/using-loaders.html)
 
@@ -36,9 +151,19 @@ Following options can be specified in query:
 
 ```javascript
 module: {
-  loaders: [
-    {test: /\.ejs$/, loader: 'ejs-compiled?htmlmin'} // enable here
-  ]
+    rules: [
+        {
+            test: /\.ejs$/,
+            use: [
+                {
+                  loader: "ejs-webpack-loader",
+                  options: {
+                    htmlmin: true
+                  }
+                }
+            ]
+        }
+    ]
 }
 ```
 
