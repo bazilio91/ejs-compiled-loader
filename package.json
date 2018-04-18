@@ -1,6 +1,6 @@
 {
   "name": "ejs-webpack-loader",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "EJS webpack 4.x loader (without frontend dependencies)",
   "main": "index.js",
   "scripts": {
