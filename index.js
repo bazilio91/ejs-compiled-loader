@@ -34,7 +34,7 @@ module.exports = function(source) {
 
   // Beautify javascript code
   if (this.loaders.length > 1) {
-    template = JSON.stringify(template());
+    template = JSON.stringify(template((opts['data'] || {})));
   } else {
     if (!this.minimize && opts.beautify !== false) {
       var ast = UglifyJS.parse(template.toString());
