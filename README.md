@@ -1,12 +1,10 @@
-# ejs-compiled-loader for webpack
+# ejs-webpack-loader for webpack 4.x
 
 EJS loader for [webpack](http://webpack.github.io/). Uses [ejs](https://github.com/mde/ejs) function to compile templates.
 
-To use [EJS by tj](https://github.com/tj/ejs) use 1.x branch and 1.x.x versions.
-
 ## Installation
 
-`npm install ejs-compiled-loader`
+`npm install ejs-webpack-loader`
 
 ## Usage
 
@@ -41,12 +39,6 @@ module: {
   loaders: [
     {test: /\.ejs$/, loader: 'ejs-compiled?htmlmin'} // enable here
   ]
-},
-'ejs-compiled-loader': {
-  'htmlmin': true, // or enable here  
-  'htmlminOptions': {
-    removeComments: true
-  }
 }
 ```
 
