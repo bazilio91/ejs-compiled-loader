@@ -5,12 +5,13 @@ var ejs = require('ejs'),
   htmlmin = require('html-minifier'),
   merge = require('merge');
 
+var DEFAULT_OPTIONS = {};
 
 module.exports = function (source) {
   this.cacheable && this.cacheable();
 
   var query = typeof this.query === 'object' ? this.query : utils.parseQuery(this.query);
-  var opts = merge(this.options['ejs-compiled-loader'] || {}, query);
+  var opts = merge(DEFAULT_OPTIONS, query);
   opts.client = true;
 
   // Skip compile debug for production when running with
