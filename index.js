@@ -6,12 +6,16 @@ var ejs = require('ejs'),
   merge = require('merge');
 
 
-module.exports = function (source) {
+module.exports = function(source) {
   this.cacheable && this.cacheable();
-
   var query = typeof this.query === 'object' ? this.query : utils.parseQuery(this.query);
-  var opts = merge(this.options['ejs-compiled-loader'] || {}, query);
-  opts.client = true;
+  var _options = typeof this.options === 'object' ? this.options['ejs-compiled-loader'] || {} : {};
+  _options = typeof utils.getOptions === 'function' ? merge(utils.getOptions(this), _options) : _options;
+  var opts = merge(_options, query);
+
+  if (opts.client == undefined) {
+    opts.client = true;
+  }
 
   // Skip compile debug for production when running with
   // webpack --optimize-minimize
@@ -27,13 +31,17 @@ module.exports = function (source) {
   }
 
   var template = ejs.compile(source, opts);
+  template.dependencies.forEach(this.dependency.bind(this));
 
   // Beautify javascript code
-  if (!this.minimize && opts.beautify !== false) {
-    var ast = UglifyJS.parse(template.toString());
-    ast.figure_out_scope();
-    template = ast.print_to_string({beautify: true});
+  if (this.loaders.length > 1) {
+    template = JSON.stringify(template((opts['data'] || {})));
+  } else {
+    if (!this.minimize && opts.beautify !== false) {
+      var ast = UglifyJS.parse(template.toString());
+      ast.figure_out_scope();
+      template = ast.print_to_string({beautify: true});
+    }
   }
-
   return 'module.exports = ' + template;
 };
