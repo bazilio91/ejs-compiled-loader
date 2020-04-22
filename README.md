@@ -13,7 +13,7 @@ To use [EJS by tj](https://github.com/tj/ejs) use 1.x branch and 1.x.x versions.
 [Documentation: Using loaders](http://webpack.github.io/docs/using-loaders.html)
 
 ``` javascript
-var template = require("ejs-compiled!./file.ejs");
+var template = require("ejs-compiled-loader!./file.ejs");
 // => returns the template function compiled with ejs templating engine.
 
 // And then use it somewhere in your code
@@ -28,7 +28,7 @@ template(data) // Pass object with data
 
 Following options can be specified in query:
 
-`beautify` — enable or disable uglify-js beautify of template ast
+`beautify` — enable or disable terser beautify of template ast
 
 `compileDebug` — see ejs compileDebug option
 
@@ -38,15 +38,18 @@ Following options can be specified in query:
 
 ```javascript
 module: {
-  loaders: [
-    {test: /\.ejs$/, loader: 'ejs-compiled?htmlmin'} // enable here
-  ]
-},
-'ejs-compiled-loader': {
-  'htmlmin': true, // or enable here  
-  'htmlminOptions': {
-    removeComments: true
-  }
+  rules: [{
+    test: /\.ejs$/, 
+    use: {
+      loader: 'ejs-compiled-loader',
+      options: {
+        htmlmin: true,
+        htmlminOptions: {
+          removeComments: true
+        }
+      }
+    }
+  }]
 }
 ```
 

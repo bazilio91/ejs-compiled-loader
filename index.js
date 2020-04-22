@@ -1,39 +1,41 @@
-var ejs = require('ejs'),
-  UglifyJS = require('uglify-js'),
-  utils = require('loader-utils'),
-  path = require('path'),
-  htmlmin = require('html-minifier'),
-  merge = require('merge');
-
+var ejs = require('ejs');
+var path = require('path');
+var merge = require('merge');
+var utils = require('loader-utils');
+var terser = require('terser');
+var htmlmin = require('html-minifier');
 
 module.exports = function (source) {
   this.cacheable && this.cacheable();
 
-  var query = typeof this.query === 'object' ? this.query : utils.parseQuery(this.query);
-  var opts = merge(this.options['ejs-compiled-loader'] || {}, query);
-  opts.client = true;
+  // wepkack3: options
+  var options = (this.hasOwnProperty("options") && (typeof this.options['ejs-compiled-loader'] === 'object')) ? this.options['ejs-compiled-loader'] : {};
+  
+  // webpack4: query 
+  var query = (this.hasOwnProperty("query")) ? (typeof this.query === 'object') ? this.query : utils.parseQuery(this.query) : {};
+  
+  // merge opts from defaults,opts and query 
+  var opts = merge({
+    client: true,
+    compileDebug: !!this.minimize,
+    minimize: (typeof this.minimize === 'boolean') ? this.minimize : false,
+    beautify: false,
+    htmlmin: (typeof this.htmlmin === 'boolean') ? this.htmlmin : false,
+    htmlminOptions: {}
+  }, options, query);
 
-  // Skip compile debug for production when running with
-  // webpack --optimize-minimize
-  if (this.minimize && opts.compileDebug === undefined) {
-    opts.compileDebug = false;
-  }
+  // minify html
+  if (opts.htmlmin) source = htmlmin.minify(source, opts.htmlminOptions);
 
-  // Use filenames relative to working dir, which should be project root
-  opts.filename = path.relative(process.cwd(), this.resourcePath);
+  // compile template
+  var template = ejs.compile(source, merge(opts, {
+    filename: path.relative(process.cwd(), this.resourcePath),
+    webpack: this
+  })).toString();
 
-  if (opts.htmlmin) {
-    source = htmlmin.minify(source, opts['htmlminOptions'] || {});
-  }
-
-  var template = ejs.compile(source, opts);
-
-  // Beautify javascript code
-  if (!this.minimize && opts.beautify !== false) {
-    var ast = UglifyJS.parse(template.toString());
-    ast.figure_out_scope();
-    template = ast.print_to_string({beautify: true});
-  }
+  // minify js with terser
+  if (opts.minimize) template = terser.minify(template, { output: { beautify: opts.beautify }}).code;
 
   return 'module.exports = ' + template;
+
 };

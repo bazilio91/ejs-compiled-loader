@@ -1,18 +1,25 @@
 module.exports = {
   entry: "./app.js",
+  mode: "production",
   cache: false,
   output: {
     path: __dirname,
     filename: "bundle.js"
   },
   module: {
-    loaders: [
-      {test: /\.ejs$/, loader: require.resolve("../") + "?htmlmin"}
-    ]
-  },
-  'ejs-compiled-loader': {
-    'htmlminOptions': {
-      removeComments: true
-    }
+    rules: [{
+      test: /\.ejs$/, 
+      use: {
+        loader: require.resolve("../"),
+        options: {
+          compileDebug: true,
+          beautify: true,
+          htmlmin: true,
+          htmlminOptions: {
+            removeComments: true
+          }
+        }
+      }
+    }]
   }
-}
+};
