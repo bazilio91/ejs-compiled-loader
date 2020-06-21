@@ -9,10 +9,7 @@ module.exports = function (source) {
   this.cacheable && this.cacheable();
 
   // wepkack3: options
-  var options = (this.hasOwnProperty("options") && (typeof this.options['ejs-compiled-loader'] === 'object')) ? this.options['ejs-compiled-loader'] : {};
-  
-  // webpack4: query 
-  var query = (this.hasOwnProperty("query")) ? (typeof this.query === 'object') ? this.query : utils.parseQuery(this.query) : {};
+  var options = utils.getOptions(this);
   
   // merge opts from defaults,opts and query 
   var opts = merge({
@@ -22,7 +19,7 @@ module.exports = function (source) {
     beautify: false,
     htmlmin: (typeof this.htmlmin === 'boolean') ? this.htmlmin : false,
     htmlminOptions: {}
-  }, options, query);
+  }, options);
 
   // minify html
   if (opts.htmlmin) source = htmlmin.minify(source, opts.htmlminOptions);
