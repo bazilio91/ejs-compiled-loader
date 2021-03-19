@@ -1,16 +1,15 @@
-var ejs = require('ejs'),
+var ejs = require('./ejs/lib/ejs'),
   uglify = require('uglify-js');
-
 
 module.exports = function (source) {
   this.cacheable && this.cacheable();
   var template = ejs.compile(source, {
     client: true,
     filename: '.',
-    webpack: this
+    webpack: this,
   });
 
   var ast = uglify.parser.parse(template.toString());
 
-  return 'module.exports = ' + uglify.uglify.gen_code(ast, {beautify: true});
+  return 'module.exports = ' + uglify.uglify.gen_code(ast, { beautify: true });
 };
