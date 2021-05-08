@@ -28,10 +28,10 @@
   "homepage": "https://github.com/bazilio91/ejs-compiled-loader",
   "dependencies": {
     "ejs": "^2",
-    "terser": "^4.6",
     "html-minifier": "^4",
     "loader-utils": "^2",
-    "merge": "^1.2.1"
+    "merge": "^2.1.1",
+    "terser": "^4.6"
   },
   "devDependencies": {
     "webpack": "^4",
