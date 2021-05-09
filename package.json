@@ -1,6 +1,6 @@
 {
   "name": "ejs-compiled-loader",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "EJS webpack loader (without frontend dependencies)",
   "main": "index.js",
   "scripts": {
