@@ -1,6 +1,6 @@
 {
-  "name": "ejs-webpack-loader",
-  "version": "2.2.1",
+  "name": "@kdv24/ejs-webpack-loader",
+  "version": "3.0.0",
   "description": "EJS webpack 4.x loader (without frontend dependencies)",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rorkflash/ejs-webpack-loader"
+    "url": "git@github.com:kdv24/ejs-webpack-loader.git/main"
   },
   "keywords": [
     "ejs",
@@ -16,16 +16,16 @@
     "loader",
     "template"
   ],
-  "author": "Ashot Gasparyan <rorkflash@gmail.com>",
+  "author": "Kelly de Vries <kdv@me.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rorkflash/ejs-webpack-loader/issues"
+    "url": "git@github.com:kdv24/ejs-webpack-loader.git/issues"
   },
-  "homepage": "https://github.com/rorkflash/ejs-webpack-loader",
+  "homepage": "git@github.com:kdv24/ejs-webpack-loader.git",
   "dependencies": {
     "html-minifier": "^3",
     "loader-utils": "^0.2.7",
-    "merge": "^1.2.0",
+    "merge": "^2.1.1",
     "uglify-js": "~2.6.1"
   },
   "devDependencies": {
