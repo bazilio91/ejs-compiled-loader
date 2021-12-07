@@ -10,8 +10,8 @@ module.exports = function (source) {
 
   // wepkack3: options
   var options = utils.getOptions(this);
-  
-  // merge opts from defaults,opts and query 
+
+  // merge opts from defaults,opts and query
   var opts = merge({
     client: true,
     compileDebug: !!this.minimize,
@@ -23,6 +23,18 @@ module.exports = function (source) {
 
   // minify html
   if (opts.htmlmin) source = htmlmin.minify(source, opts.htmlminOptions);
+
+  // Build open delimiter from options
+  const delim = opts.delimiter || "%";
+  const open = opts.openDelimiter || "<";
+  let openDelimiter = "<%".replace(/%/g, delim).replace(/</g, open)
+
+  // Find included files and add them to webpack dependencies
+  let regexp = new RegExp(`${openDelimiter}-\\sinclude\\s+(\\S+)`, "gi");
+  const array = [...source.matchAll(regexp)];
+  array.forEach(([match, link]) => {
+    this.addDependency(path.resolve(this.context, link))
+  });
 
   // compile template
   var template = ejs.compile(source, merge(opts, {
