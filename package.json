@@ -1,14 +1,14 @@
 {
-  "name": "ejs-compiled-loader",
-  "version": "2.2.0",
-  "description": "EJS webpack loader (without frontend dependencies)",
+  "name": "ejs-webpack-loader",
+  "version": "2.2.2",
+  "description": "EJS webpack 4.x loader (without frontend dependencies)",
   "main": "index.js",
   "scripts": {
     "test": "cd test && ../node_modules/.bin/webpack && node bundle.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bazilio91/ejs-compiled-loader.git"
+    "url": "https://github.com/rorkflash/ejs-webpack-loader"
   },
   "keywords": [
     "ejs",
@@ -16,21 +16,23 @@
     "loader",
     "template"
   ],
-  "author": "Vasily Ostanin <bazilio91@gmail.com>",
+  "author": "Ashot Gasparyan <rorkflash@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bazilio91/ejs-compiled-loader/issues"
+    "url": "https://github.com/rorkflash/ejs-webpack-loader/issues"
   },
-  "homepage": "https://github.com/bazilio91/ejs-compiled-loader",
+  "homepage": "https://github.com/rorkflash/ejs-webpack-loader",
   "dependencies": {
-    "ejs": "^2.0.0",
     "html-minifier": "^3",
     "loader-utils": "^0.2.7",
-    "merge": "^1.2.0",
+    "merge": "^2.1.1",
     "uglify-js": "~2.6.1"
   },
   "devDependencies": {
     "node-libs-browser": "^0.5.0",
-    "webpack": "^1.9.4"
+    "webpack": "^4.5.0"
+  },
+  "peerDependencies": {
+    "ejs": "^2.0.0"
   }
 }
