@@ -34,7 +34,7 @@
     "terser": "^4.6"
   },
   "devDependencies": {
-    "webpack": "^4",
-    "webpack-cli": "^3"
+    "webpack": "^5",
+    "webpack-cli": "^5"
   }
 }
